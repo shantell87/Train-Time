@@ -18,9 +18,11 @@ firebase.initializeApp(config);
 //everytime the submit button is clicked the input info will be stored
 var trainData = firebase.database();
 
+//click submission button, add new train data
 $("#submit").on("click", function(event){
     event.preventDefault();
 
+//new train data
     let trainName = $("#train-name").val().trim();
     let destination = $("#train-destination").val().trim();
     let firstTrain = moment($("#train-time").val().trim(), "HH:mm").subtract(10, "years").format("x");
@@ -58,6 +60,7 @@ trainData.ref().on("child_added", function(snapshot){
     // console.log(minutes);
     // console.log(arrival);
 
-    $("#trainTable > tbody").append("<tr><td>"+name+"</td><td>"+destination+"</td><td>"+frequency+"</td><td>"+arrival+"</td><td>"+
-    minutes+"</td><tr>");
+    //New train being added to the table body
+    $("#trainTable > tbody").append("<tr><td>"+name+"</td><td>"+destination+"</td><td>"+frequency+"</td><td>"+arrival+"</td><td>"+minutes+"</td><tr>");
+
 })
