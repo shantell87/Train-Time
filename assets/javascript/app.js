@@ -18,13 +18,13 @@ firebase.initializeApp(config);
 //everytime the submit button is clicked the input info will be stored
 var trainData = firebase.database();
 
-$("#submit").on("click", function (e) {
-    e.preventdefault();
+$("#submit").on("click", function(event){
+    event.preventDefault();
 
-    var trainName = $("#train-name").val.trim();
-    var destination = $("#train-destination").val.trim();
-    var firstTrain = moment($("#train-time").val().trim(), "HH:mm").subtract(10, "years").format("x");
-    var frequency = $("#train-frequency").val().trim();
+    let trainName = $("#train-name").val().trim();
+    let destination = $("#train-destination").val().trim();
+    let firstTrain = moment($("#train-time").val().trim(), "HH:mm").subtract(10, "years").format("x");
+    let frequency = $("#train-frequency").val().trim();
 
     var newTrain = {
         name: trainName,
@@ -45,18 +45,18 @@ $("#submit").on("click", function (e) {
 })
 
 trainData.ref().on("child_added", function(snapshot){
-    var name = snapshot.val().name;
-    var destination = snapshot.val().destination;
-    var frequency = snapshot.val().frequency;
-    var firstTrain = snapshot.val().firstTrain;
+    let name = snapshot.val().name;
+    let destination = snapshot.val().destination;
+    let frequency = snapshot.val().frequency;
+    let firstTrain = snapshot.val().firstTrain;
 
-    var remainder = moment().diff(moment.unix(firstTrain), "minutes")%frequency;
-    var minutes = frequency = remainder;
-    var arrival = moment().add(minutes,"m").format("hh:mm A");
+    let remainder = moment().diff(moment.unix(firstTrain), "minutes")%frequency;
+    let minutes = frequency - remainder;
+    let arrival = moment().add(minutes,"m").format("hh:mm A");
 
-    console.log(remainder);
-    console.log(minutes);
-    console.log(arrival);
+    // console.log(remainder);
+    // console.log(minutes);
+    // console.log(arrival);
 
     $("#trainTable > tbody").append("<tr><td>"+name+"</td><td>"+destination+"</td><td>"+frequency+"</td><td>"+arrival+"</td><td>"+
     minutes+"</td><tr>");
