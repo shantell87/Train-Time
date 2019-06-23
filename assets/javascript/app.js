@@ -14,8 +14,13 @@ var config = {
 // Initialize Firebase
 firebase.initializeApp(config);
 
+//the trainData variable is going to serve as a reference to firebase
+//everytime the submit button is clicked the input info will be stored
 var trainData = firebase.database();
-$("#submit").on("click", function () {
+
+$("#submit").on("click", function (e) {
+    e.preventdefault();
+
     var trainName = $("#train-name").val.trim();
     var destination = $("#train-destination").val.trim();
     var firstTrain = moment($("#train-time").val().trim(), "HH:mm").subtract(10, "years").format("x");
