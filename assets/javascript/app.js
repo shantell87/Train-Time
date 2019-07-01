@@ -2,6 +2,8 @@
 //console.log("Hello!")
 
 // Your web app's Firebase configuration
+
+let trainArray = []
 var config = {
     apiKey: "AIzaSyDhlxp7gYlyEK-z6nH2iHB9XLLUTHTRqgs",
     authDomain: "train-timetable-2354d.firebaseapp.com",
@@ -56,11 +58,16 @@ trainData.ref().on("child_added", function(snapshot){
     let minutes = frequency - remainder;
     let arrival = moment().add(minutes,"m").format("hh:mm A");
 
+    trainArray = snapshot.val()
+
+    console.log(trainArray)
     // console.log(remainder);
     // console.log(minutes);
     // console.log(arrival);
 
     //New train being added to the table body
+
+
     $("#trainTable > tbody").append("<tr><td>"+name+"</td><td>"+destination+"</td><td>"+frequency+"</td><td>"+arrival+"</td><td>"+minutes+"</td><tr>");
 
 })
